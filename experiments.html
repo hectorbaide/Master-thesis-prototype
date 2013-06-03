@@ -128,13 +128,13 @@ console.log("TIME tags are " + timeList);
 
 function populateMenus () {
         for (var i = objectList.length - 1; i >= 0; i--) {
-        $('#top').append('<a href=#>'+'<p class="objects" data="' + objectList[i] + '">' + objectList[i] + '</p></a>');
+        $('#top').append('<a href=#">'+'<p class="objects" data="OO' + objectList[i] + '"onclick=alert(\"HolyCow it works!\");>' + '<span>' + objectList[i] + '</span>' + '</p></a>');
     };
         for (var i = spaceList.length - 1; i >= 0; i--) {
-        $('#left').append('<a href=#>'+'<p class="spaces" data="' + spaceList[i] + '">' + spaceList[i] + '</p></a>');
+        $('#left').append('<a href=#>'+'<p class="spaces" data="SS' + spaceList[i] + '">' + spaceList[i] + '</p></a>');
     };
         for (var i = timeList.length - 1; i >= 0; i--) {
-        $('#right').append('<a href=#>'+'<p class="time" data="' + timeList[i] + '">' + timeList[i] + '</p></a>');
+        $('#right').append('<a href=#>'+'<p class="time" data="TT' + timeList[i] + '">' + timeList[i] + '</p></a>');
     };
 }
 

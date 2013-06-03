@@ -167,14 +167,15 @@ a:link {text-decoration:none;}
 a:link {color: white;}
 a:visited {text-decoration:none;}
 a:visited {color: white;}
-a:hover {text-decoration:none;}
+a:hover {opacity:1.0;}
 a:active {text-decoration:none;}
 
-a:
+p:{border-bottom: black;}
 
 
 #left {
 	background: #BB0000;
+	opacity: 0.85;
 	font-family: LongText;
 	color: #FFFFFF;
 	text-transform: uppercase;
@@ -185,8 +186,11 @@ a:
 	line-height: 1.25em;
 }
 
+.objects:hover {opacity: 1.0;}
+
 #right {
 	background: #00BB00;
+	opacity: 0.85;
 	font-family: LongText;
 	color: #FFFFFF;
 	text-transform: uppercase;
@@ -199,6 +203,7 @@ a:
 
 #top {
 	background: #BBBB00;
+	opacity: 0.85;
 	font-family: LongText;
 	color: #000000;
 	text-transform: uppercase;
