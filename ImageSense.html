@@ -13,24 +13,10 @@
                 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/> -->
                 <link rel="stylesheet" href="refs/style.css">
                 <!-- <link rel="stylesheet" href="refs/jquery.mobile-1.3.0.min.css" /> -->
-                
                 <script type="text/javascript" src="refs/jquery-1.9.1.min.js"></script>
-                <script type="text/javascript" src="refs/jquery-migrate-1.1.1.js"></script>
                 <script type="text/javascript" src="refs/underscore-min.js"></script>
                 <script type="text/javascript" src="refs/jquery.mobile-1.3.0.min.js"></script>
-                <script type="text/javascript" src="refs/isotope.js"></script>
                 <script type="text/javascript" src="BMSelector.js"></script>
-
-                
-            <!-- End of links to external stuff --> 
-
-        		
-
-        <!-- End of links -->
-        		
-        	<!-- Isotopes -->
-
-	
 	</head>
 	
 <body>
@@ -151,14 +137,6 @@ for (var index in imageThumbs) {
       //that will be the image container
     $("#GalleryView").append("<img src='" + imageThumbs[index] + "'/>");
 }
-
-// //Isotopeification
-// $(document).ready(function($) {
-//     // Stuff to do as soon as the DOM is ready;
-//     $("#GalleryView").isotope({layoutMode:'masonry'});
-// });
-
-
 
 for (var index in tagSelection) {
     $("#textOverlay").append("<p>" + tagSelection[index] + "</p>");
