@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Prototype Second</title>
+		<title>Tag Navigation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">  
                 
                 <link rel="stylesheet" href="refs/style.css">
@@ -33,13 +33,15 @@
             <div id="texts" class="hidden"></div>
     </div>  
 
+    <div id="menus">
+        <div id="left"></div>
+        <div id="right"></div>
+        <div id="top"></div>
+    </div>
+
     <div id="Container">
 
         <div id="GalleryView" class="Temp"></div>
-
-        <div id="DataVizView"></div>
-
-        <div id="InteractiveGallery"></div>
 
     </div>
 
@@ -55,16 +57,16 @@
 var images = new Array;
 
 images[0] = { 'src': 'photos/000.jpg', 'thumb': 'thumb/000.jpg', 'tags':[''], 'meta':['']};
-images[1] = { 'src': 'photos/001.jpg', 'thumb': 'thumb/001.jpg', 'tags':['food','sandwich','bremen','home','daily'], 'meta':['object','bremen','daily']};
-images[2] = { 'src': 'photos/002.jpg', 'thumb': 'thumb/002.jpg', 'tags':['food','salad','bremen','home','daily'], 'meta':['object','bremen','daily']};
-images[3] = { 'src': 'photos/003.jpg', 'thumb': 'thumb/003.jpg', 'tags':['food','salad','bremen','home','daily'], 'meta':['object','bremen','daily']};
-images[4] = { 'src': 'photos/004.jpg', 'thumb': 'thumb/004.jpg', 'tags':['animal','bug','bremen','home','daily'], 'meta':['object','bremen','daily']};
-images[5] = { 'src': 'photos/005.jpg', 'thumb': 'thumb/005.jpg', 'tags':['object','game','bremen','home','daily','desk'], 'meta':['object','bremen','daily']};
-images[6] = { 'src': 'photos/006.jpg', 'thumb': 'thumb/006.jpg', 'tags':['object','flower','apensen','trip','artistic','closeup'], 'meta':['object','apensen','romantic']};
-images[7] = { 'src': 'photos/007.jpg', 'thumb': 'thumb/007.jpg', 'tags':['building','malerschule','apensen','trip','artistic'], 'meta':['building','apensen','artistic']};
-images[8] = { 'src': 'photos/008.jpg', 'thumb': 'thumb/008.jpg', 'tags':['object','grill','apensen','trip','artistic','closeup'], 'meta':['object','apensen','artistic']};
-images[9] = { 'src': 'photos/009.jpg', 'thumb': 'thumb/009.jpg', 'tags':['object','flower','apensen','trip','artistic','closeup'], 'meta':['object','apensen','artistic']};
-images[10] = { 'src': 'photos/010.jpg', 'thumb': 'thumb/010.jpg', 'tags':['object','street','bremen','artistic','closeup'], 'meta':['object','bremen','daily']};
+images[1] = { 'src': 'photos/001.jpg', 'thumb': 'thumb/001.jpg', 'tags':['OOfood','OOsandwich','SSbremen','SShome','TTdaily']};
+images[2] = { 'src': 'photos/002.jpg', 'thumb': 'thumb/002.jpg', 'tags':['OOfood','OOsalad','SSbremen','SShome','TTdaily']};
+images[3] = { 'src': 'photos/003.jpg', 'thumb': 'thumb/003.jpg', 'tags':['OOfood','OOsalad','bremen','SShome','TTdaily']};
+images[4] = { 'src': 'photos/004.jpg', 'thumb': 'thumb/004.jpg', 'tags':['OOanimal','OObug','SSbremen','SShome','TTdaily']};
+images[5] = { 'src': 'photos/005.jpg', 'thumb': 'thumb/005.jpg', 'tags':['OOgame','SSbremen','SShome','TTdaily','OOdesk']};
+images[6] = { 'src': 'photos/006.jpg', 'thumb': 'thumb/006.jpg', 'tags':['OOobject','OOflower','SSapensen','TTtrip','TTartistic','TTcloseup']};
+images[7] = { 'src': 'photos/007.jpg', 'thumb': 'thumb/007.jpg', 'tags':['OObuilding','OOmalerschule','SSapensen','TTtrip','TTartistic']};
+images[8] = { 'src': 'photos/008.jpg', 'thumb': 'thumb/008.jpg', 'tags':['OOobject','OOgrill','SSapensen','TTtrip','TTartistic','TTcloseup']};
+images[9] = { 'src': 'photos/009.jpg', 'thumb': 'thumb/009.jpg', 'tags':['OOobject','OOflower','SSapensen','TTtrip','TTartistic','TTcloseup']};
+images[10] = { 'src': 'photos/010.jpg', 'thumb': 'thumb/010.jpg', 'tags':['OOobject','SSstreet','SSbremen','TTartistic','TTcloseup']};
 
 //Variable holding all tags (maybe needed later)
 var allTags = _.pluck(images, "tags");
@@ -73,7 +75,7 @@ var allTags = _.pluck(images, "tags");
 var tagButtons = [];
 
 //Variable that holds the selected tags
-var tagSelection = ['food','salad','bremen','home','daily'];
+var tagSelection = [];
 
 //Logging of the size and values of the selected tags
 console.log(tagSelection + " are the values of tagSelection variable");
@@ -157,14 +159,9 @@ evaluation();
 //Image insert function displayPictures
 function displayPictures () {
     evaluation();
-    // $('#GalleryView').empty();
-    // $('body').append('<div id="GalleryView" class="Temp"></div>');
     for (var index in imageThumbs) {
-      //you need to identify a div with some id - say "container"
-      //that will be the image container
     $("#GalleryView").append("<a href=#><img src='" + imageThumbs[index] + "'/ width='155' height='272' border='1'></a>");}
-    $("#GalleryView").pop;
-    }
+    $("#GalleryView").pop;}
     $("#GalleryView").pop;
 
 //Initial call to displayPictures
@@ -180,14 +177,117 @@ function showTags () {
 //Initial call to showTags    
 showTags();
 
-//Selbstverständlich
-function backButton() {
-    
-    tagSelection.pop();
+//START OF NEW STUFF
+
+//Declaration of a lot of global variables
+var newVar = [];
+var stringTags = "";
+var metaObject = [];
+var metaSpace = [];
+var metaTime = [];
+var timeList = [];
+var timeStringList = "";
+var spaceList = [];
+var spaceStringList = "";
+var objectList = [];
+var objectStringList = "";
+
+//Extraction of all the tags in image objects collection
+var allTags = _.pluck(images, "tags");
+console.log("allTags = " + allTags);
+
+//Flattening of tag array for manipulations
+var flatTags = _.flatten(allTags);
+console.log("flatTags = " + flatTags);
+
+//Converting tags to strings for eliminating meta identifiers
+var stringTags = flatTags.toString();
+console.log("stringTags = " + stringTags);
+
+//Creation of list of tags without meta identifiers
+var rep = /[SOT]/g;
+var n = stringTags.replace(rep,'');
+console.log("stringTags without Metas = " + n)
+
+//Creation of array containing tags without meta identifiers
+var tArray = stringTags.split(',')
+var nArray = n.split(',');
+var buttonList = _.uniq(nArray);
+console.log(buttonList);
+
+//Distribution of tags by meta identifiers
+function metaDistribution () {
+    //Reset variable values
+    metaSpace = [];
+    metaObject = [];
+    metaTime = [];
+    //Separate values of the array of tags
+    for (var i = flatTags.length - 1; i >= 0; i--) {
+    if (flatTags[i].indexOf('TT') !== -1 ) { metaTime.push(flatTags[i]); };
+    if (flatTags[i].indexOf('SS') !== -1 ) { metaSpace.push(flatTags[i]); };
+    if (flatTags[i].indexOf('OO') !== -1 ) { metaObject.push(flatTags[i]); };   
+    //Eliminate duplicates
+    spaceList = _.uniq(metaSpace);
+    objectList = _.uniq(metaObject);
+    timeList = _.uniq(metaTime);}
+    //Convert to string for taking away ID values
+    spaceStringList = spaceList.toString();
+    objectStringList = objectList.toString();
+    timeStringList = timeList.toString();
+    //Take away ID values
+    var tSpaceStringList = spaceStringList.replace(rep,'');
+    var tObjectStringList = objectStringList.replace(rep,'');
+    var tTimeStringList = timeStringList.replace(rep,'');
+    //Reset list arrays stuff to fill them in with the new values
+    spaceList = [];
+    objectList = [];
+    timeList = [];
+    //Repopulate arrays and finalize state of finished buttons
+    spaceList = tSpaceStringList.split(',');
+    objectList = tObjectStringList.split(',');
+    timeList = tTimeStringList.split(',');
+}
+
+console.log(flatTags);
+
+metaDistribution();
+
+console.log("SPACE tags are " + spaceList);
+console.log("OBJECT tags are " + objectList);
+console.log("TIME tags are " + timeList);
+
+
+//Populating menus
+
+function populateMenus () {
+        for (var i = objectList.length - 1; i >= 0; i--) {
+        $('#top').append('<div class="objects">' + objectList[i] + '</div>');
+    };
+        for (var i = spaceList.length - 1; i >= 0; i--) {
+        $('#left').append('<div class="spaces">' + spaceList[i] + '</div>');
+    };
+        for (var i = timeList.length - 1; i >= 0; i--) {
+        $('#right').append('<div class="time">' + timeList[i] + '</div>');
+    };
+}
+
+populateMenus();
+var testArray = [];
+
+//Refresh function (show and hide things after clicks)
+function refresh() {
     $("#GalleryView").empty();
     $("#textOverlay").empty();
     displayPictures();
-    showTags();
+    showTags();  
+}
+
+//Back button function
+function backButton() {
+    
+    tagSelection.pop();
+    refresh();
+    
     //Takes element out from all arrays
                     }
 
@@ -198,6 +298,60 @@ function backButton() {
               });
 
  $('GalleryView').isotope();
+
+//SuperClick function for tag based navigation for objects
+    $("#top .objects").on("click", function(event){
+        tagSelection.push('OO' + $(this).text());
+        console.log(tagSelection);
+        $("#top").fadeOut();
+        refresh();
+    });
+
+//SuperClick function for tag based navigation for objects
+    $("#left .spaces").on("click", function(event){
+        tagSelection.push('SS' + $(this).text());
+        console.log(tagSelection);
+        $("#left").fadeOut();
+        refresh();
+    });
+
+//SuperClick function for tag based navigation for objects
+    $("#right .time").on("click", function(event){
+        tagSelection.push('TT' + $(this).text());
+        console.log(tagSelection);
+        $("#right").fadeOut();
+        refresh();
+    });
+
+//Initial state hide menus
+
+    $("#top").hide();
+    $("#left").hide();
+    $("#right").hide();
+
+
+
+
+
+//Click show and hide menus
+    $(".top-bar").on("click", function(event){
+        $("#top").fadeToggle(150);
+        $("#left").hide();
+        $("#right").hide();
+    });
+
+    $(".left-bar").on("click", function(event){
+        $("#left").fadeToggle(150);
+        $("#top").hide();
+        $("#right").hide();
+    });
+
+    $(".right-bar").on("click", function(event){
+        $("#right").fadeToggle(150);
+        $("#left").hide();
+        $("#top").hide();
+    });
+
 
 </script> 
 
