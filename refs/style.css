@@ -186,10 +186,9 @@ p:{border-bottom: black;}
 	text-align: center;
 	text-decoration: none;
 	font-size: 3em;
-	border-bottom: solid 1px #DD0000;
+	border-bottom: solid 2px #DD0000;
 	line-height: 1.5em;
 	position: absolute;
-	top:50%;
 	z-index: 800;
 }
 
@@ -208,7 +207,7 @@ p:{border-bottom: black;}
 	text-align: center;
 	text-decoration: none;
 	font-size: 3em;
-	border-bottom: solid 1px #00DDDD;
+	border-bottom: solid 2px #00DDDD;
 	line-height: 1.5em;
 	position: absolute;
 	z-index: 800;
@@ -222,12 +221,12 @@ p:{border-bottom: black;}
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 6%;
+	margin-top: 9%;
 	text-transform: uppercase;
 	text-align: center;
 	text-decoration: none;
 	font-size: 3em;
-	border-bottom: solid 1px yellow;
+	border-bottom: solid 2px yellow;
 	line-height: 1.5em;
 	position: absolute;
 	z-index: 800;

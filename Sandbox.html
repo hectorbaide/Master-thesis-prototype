@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Tag Navigation</title>
+    <head>
+        <title>Tag Navigation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">  
                 
                 <link rel="stylesheet" href="refs/style.css">
@@ -12,10 +12,10 @@
                 <script type="text/javascript" src="refs/isotope.js"></script>
                 <script type="text/javascript" src="BMSelector.js"></script>
                 <script type="text/javascript" src="experiments.js"></script>
-	</head>
-	
+    </head>
+    
 <body>
-	<div id="UIOverlay">
+    <div id="UIOverlay">
 
        <a href="#event" data-rel="popup" data-transition="fade" data-position-to="#window"><div class="right-bar">
             </div></a>
@@ -33,11 +33,11 @@
             <div id="texts" class="hidden"></div>
     </div>  
 
-    <div id="menus">
-        <div id="left"></div>
-        <div id="right"></div>
-        <div id="top"></div>
-    </div>
+    
+    <div id="left"></div>
+    <div id="right"></div>
+    <div id="top"></div>
+    
 
     <div id="Container">
 
@@ -49,7 +49,7 @@
     
     
 </body>
-	
+    
 
 <script type="text/javascript">
 
@@ -62,14 +62,14 @@ images[2] = { 'src': 'photos/002.jpg', 'thumb': 'thumb/002.jpg', 'tags':['','OOf
 images[3] = { 'src': 'photos/003.jpg', 'thumb': 'thumb/003.jpg', 'tags':['','OOfood','OOsalad','bremen','SShome','TTdaily']};
 images[4] = { 'src': 'photos/004.jpg', 'thumb': 'thumb/004.jpg', 'tags':['','OOanimal','OObug','SSbremen','SShome','TTdaily']};
 images[5] = { 'src': 'photos/005.jpg', 'thumb': 'thumb/005.jpg', 'tags':['','OOgame','SSbremen','SShome','TTdaily','OOdesk']};
-images[6] = { 'src': 'photos/006.jpg', 'thumb': 'thumb/006.jpg', 'tags':['','OOobject','OOflower','SSapensen','TTtrip','TTartistic','TTcloseup']};
+images[6] = { 'src': 'photos/006.jpg', 'thumb': 'thumb/006.jpg', 'tags':['','OOflower','SSapensen','TTtrip','TTartistic','TTcloseup']};
 images[7] = { 'src': 'photos/007.jpg', 'thumb': 'thumb/007.jpg', 'tags':['','OObuilding','OOmalerschule','SSapensen','TTtrip','TTartistic']};
-images[8] = { 'src': 'photos/008.jpg', 'thumb': 'thumb/008.jpg', 'tags':['','OOobject','OOgrill','SSapensen','TTtrip','TTartistic','TTcloseup']};
-images[9] = { 'src': 'photos/009.jpg', 'thumb': 'thumb/009.jpg', 'tags':['','OOobject','OOflower','SSapensen','TTtrip','TTartistic','TTcloseup']};
-images[10] = { 'src': 'photos/010.jpg', 'thumb': 'thumb/010.jpg', 'tags':['','OOobject','SSstreet','SSbremen','TTartistic','TTcloseup']};
+images[8] = { 'src': 'photos/008.jpg', 'thumb': 'thumb/008.jpg', 'tags':['','OOgrill','SSapensen','TTtrip','TTartistic','TTcloseup']};
+images[9] = { 'src': 'photos/009.jpg', 'thumb': 'thumb/009.jpg', 'tags':['','OOflower','SSapensen','TTtrip','TTartistic','TTcloseup']};
+images[10] = { 'src': 'photos/010.jpg', 'thumb': 'thumb/010.jpg', 'tags':['','SSstreet','SSbremen','TTartistic','TTcloseup']};
 
 //Variable holding all tags (maybe needed later)
-var allTags = _.pluck(images, "tags");
+var everyTags = _.pluck(images, "tags");
 
 //Buttons for textual search gallery
 var tagButtons = [];
@@ -177,7 +177,7 @@ function showTags () {
 //Initial call to showTags    
 showTags();
 
-//START OF NEW STUFF
+//TAG MANIPULATION WITH MENUS
 
 //Declaration of a lot of global variables
 var newVar = [];
@@ -192,31 +192,34 @@ var spaceStringList = "";
 var objectList = [];
 var objectStringList = "";
 
-//Extraction of all the tags in image objects collection
-var allTags = _.pluck(images, "tags");
-console.log("allTags = " + allTags);
 
-//Flattening of tag array for manipulations
-var flatTags = _.flatten(allTags);
-console.log("flatTags = " + flatTags);
-
-//Converting tags to strings for eliminating meta identifiers
-var stringTags = flatTags.toString();
-console.log("stringTags = " + stringTags);
-
-//Creation of list of tags without meta identifiers
-var rep = /[SOT]/g;
-var n = stringTags.replace(rep,'');
-console.log("stringTags without Metas = " + n)
-
-//Creation of array containing tags without meta identifiers
-var tArray = stringTags.split(',')
-var nArray = n.split(',');
-var buttonList = _.uniq(nArray);
-console.log(buttonList);
 
 //Distribution of tags by meta identifiers
 function metaDistribution () {
+
+    //Extraction of all the tags in image objects collection
+    var allTags = _.pluck(selection, "tags");
+    console.log("allTags = " + allTags);
+
+    //Flattening of tag array for manipulations
+    var flatTags = _.flatten(allTags);
+    console.log("flatTags = " + flatTags);
+
+    //Converting tags to strings for eliminating meta identifiers
+    var stringTags = flatTags.toString();
+    console.log("stringTags = " + stringTags);
+
+    //Creation of list of tags without meta identifiers
+    var rep = /[SOT]/g;
+    var n = stringTags.replace(rep,'');
+    console.log("stringTags without Metas = " + n)
+
+    //Creation of array containing tags without meta identifiers
+    var tArray = stringTags.split(',')
+    var nArray = n.split(',');
+    var buttonList = _.uniq(nArray);
+    console.log(buttonList);
+
     //Reset variable values
     metaSpace = [];
     metaObject = [];
@@ -260,38 +263,53 @@ console.log("TIME tags are " + timeList);
 //Populating menus
 
 function populateMenus () {
+    
+    $('#top').empty();
+    $('#left').empty();
+    $('#right').empty();
+
         for (var i = objectList.length - 1; i >= 0; i--) {
-        $('#top').append('<div class="objects">' + objectList[i] + '</div>');
+        metaDistribution();
+        objectList.sort();
+        objectList.reverse();
+        $('#top').append('<div class="objects"><tr>' + objectList[i] + '</tr></div>');
     };
         for (var i = spaceList.length - 1; i >= 0; i--) {
-        $('#left').append('<div class="spaces">' + spaceList[i] + '</div>');
+        metaDistribution();
+        spaceList.sort();
+        spaceList.reverse();
+        $('#left').append('<div class="spaces"><tr>' + spaceList[i] + '</tr></div>');
     };
         for (var i = timeList.length - 1; i >= 0; i--) {
-        $('#right').append('<div class="time">' + timeList[i] + '</div>');
+        metaDistribution();
+        timeList.sort();
+        timeList.reverse();
+        $('#right').append('<div class="time"><tr>' + timeList[i] + '</tr></div>');
     };
 }
 
 populateMenus();
-var testArray = [];
+
 
 //Refresh function (show and hide things after clicks)
 function refresh() {
     $("#GalleryView").empty();
     $("#textOverlay").empty();
     displayPictures();
-    showTags();  
+    showTags();
 }
 
-//Back button function
+//Back button callback function, takes away the last added element and refreshes
 function backButton() {
-    
     tagSelection.pop();
+    tagSelection = _.uniq(tagSelection);
     refresh();
-    
-    //Takes element out from all arrays
-                    }
+    metaDistribution();
+    populateMenus();
+}
 
-     $(function() {
+//Execution of the function
+$(function() {
                 $( "#popButton" ).on( 'tap', tapHandler );
                 function tapHandler( event ) {
                 backButton();}
@@ -300,27 +318,35 @@ function backButton() {
      $('GalleryView').isotope();
 
 //SuperClick function for tag based navigation for objects
-    $("#top .objects").on("click", function(event){
+    $("#top").on("click",".objects", function(event){
         tagSelection.push('OO' + $(this).text());
-        console.log(tagSelection);
+        tagSelection = _.uniq(tagSelection);
         $("#top").fadeOut();
         refresh();
+        metaDistribution();
+        populateMenus();
+        
     });
 
 //SuperClick function for tag based navigation for objects
-    $("#left .spaces").on("click", function(event){
+    $("#left").on("click",".spaces", function(event){
         tagSelection.push('SS' + $(this).text());
-        console.log(tagSelection);
+        tagSelection = _.uniq(tagSelection);
         $("#left").fadeOut();
         refresh();
+        metaDistribution();
+        populateMenus();
+        
     });
 
 //SuperClick function for tag based navigation for objects
-    $("#right .time").on("click", function(event){
+    $("#right").on("click", ".time", function(event){
         tagSelection.push('TT' + $(this).text());
-        console.log(tagSelection);
+        tagSelection = _.uniq(tagSelection);
         $("#right").fadeOut();
         refresh();
+        metaDistribution();
+        populateMenus();   
     });
 
 //Initial state hide menus
@@ -329,20 +355,12 @@ function backButton() {
     $("#left").hide();
     $("#right").hide();
 
-
-
-
-
 //Click show and hide menus
+
     $(".top-bar").on("click", function(event){
         $("#top").fadeToggle(150);
         $("#left").hide();
         $("#right").hide();
-        $('#top').css({
-        position:'absolute',
-        top: ($(window).height() - $('#top').outerHeight())/2
-    });
-
     });
 
     $(".left-bar").on("click", function(event){
@@ -356,7 +374,9 @@ function backButton() {
         $("#left").hide();
         $("#top").hide();
     });
+
 // Initialization of gallery 
+
 refresh();
 
 </script> 
