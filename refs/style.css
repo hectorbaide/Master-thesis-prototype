@@ -189,6 +189,7 @@ p:{border-bottom: black;}
 	border-bottom: solid 1px #DD0000;
 	line-height: 1.5em;
 	position: absolute;
+	top:50%;
 	z-index: 800;
 }
 
