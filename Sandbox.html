@@ -10,6 +10,7 @@
                 <script type="text/javascript" src="refs/underscore-min.js"></script>
                 <script type="text/javascript" src="refs/jquery.mobile-1.3.0.min.js"></script>
                 <script type="text/javascript" src="refs/isotope.js"></script>
+                <script type="text/javascript" src="refs/raphael-min.js"></script>
 
     </head>
     
@@ -171,18 +172,6 @@ images[112] = { 'src': 'photos/112.jpg', 'thumb': 'thumb/112.jpg', 'tags':['','S
 images[113] = { 'src': 'photos/113.jpg', 'thumb': 'thumb/113.jpg', 'tags':['','SSunknown','TTsad','OOtrain','OObuilding','TTtrip','OOpeople','SStram stop','TTsunny day']};
 images[114] = { 'src': 'photos/114.jpg', 'thumb': 'thumb/114.jpg', 'tags':['','SSunknown','TTsad','OOtrain','OObuilding','OOpeople','SStram stop','TTtrip','TTsunny day']};
 images[115] = { 'src': 'photos/115.jpg', 'thumb': 'thumb/115.jpg', 'tags':['','TTtrip','SSbudapest','TTsad','OOtrain','OObuilding','OOpeople','SStram stop','TTsunny day']};
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Variable holding all tags (maybe needed later)
 var everyTags = _.pluck(images, "tags");
@@ -419,19 +408,19 @@ function populateMenus () {
     $('#right').empty();
 
         for (var i = objectList.length - 1; i >= 0; i--) {
-        metaDistribution();
+        // metaDistribution();
         objectList.sort();
         objectList.reverse();
         $('#top').append('<div class="objects"><tr>' + objectList[i] + '</tr></div>');
     };
         for (var i = spaceList.length - 1; i >= 0; i--) {
-        metaDistribution();
+        // metaDistribution();
         spaceList.sort();
         spaceList.reverse();
         $('#left').append('<div class="spaces"><tr>' + spaceList[i] + '</tr></div>');
     };
         for (var i = timeList.length - 1; i >= 0; i--) {
-        metaDistribution();
+        // metaDistribution();
         timeList.sort();
         timeList.reverse();
         $('#right').append('<div class="time"><tr>' + timeList[i] + '</tr></div>');
@@ -483,6 +472,10 @@ function backButton() {
     $('#textOverlay').empty();
     $('#GalleryView').empty();
     $("#textOverlay").append("<p>" + "Touch edges to search for things</p>");
+    $('#top').hide();
+    $('#right').hide();
+    $('#left').hide();
+    console.log('detected click');
     } 
     else
     {
@@ -492,6 +485,7 @@ function backButton() {
     $('#top').fadeOut(85);
     $('#right').fadeOut(85);
     $('#left').fadeOut(85);
+    console.log('detected funcky click');
     metaDistribution();
     populateMenus();   
     };
