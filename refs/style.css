@@ -235,7 +235,7 @@ p:{border-bottom: black;}
 	text-align: center;
 	text-decoration: none;
 	font-size: 3em;
-	border-bottom: solid 2px yellow;
+	border-bottom: solid 1px yellow;
 	line-height: 1.5em;
 	position: absolute;
 	z-index: 800;

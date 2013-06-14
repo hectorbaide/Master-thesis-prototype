@@ -6,10 +6,8 @@
                 
                 <link rel="stylesheet" href="refs/style.css">
                 <script type="text/javascript" src="refs/jquery-1.9.1.min.js"></script>
-                <script type="text/javascript" src="refs/jquery-migrate-1.1.1.js"></script>
                 <script type="text/javascript" src="refs/underscore-min.js"></script>
                 <script type="text/javascript" src="refs/jquery.mobile-1.3.0.min.js"></script>
-                <script type="text/javascript" src="refs/isotope.js"></script>
                 <script type="text/javascript" src="refs/raphael-min.js"></script>
 
     </head>
@@ -45,7 +43,10 @@
 
     </div>
 
-    <div id="popButton"><span> < BACK </span></div>
+    <div id="popButton">
+        <span> < BACK </span>
+        <span> Mix </span>
+    </div>
     
     
 </body>
@@ -173,6 +174,30 @@ images[113] = { 'src': 'photos/113.jpg', 'thumb': 'thumb/113.jpg', 'tags':['','S
 images[114] = { 'src': 'photos/114.jpg', 'thumb': 'thumb/114.jpg', 'tags':['','SSunknown','TTsad','OOtrain','OObuilding','OOpeople','SStram stop','TTtrip','TTsunny day']};
 images[115] = { 'src': 'photos/115.jpg', 'thumb': 'thumb/115.jpg', 'tags':['','TTtrip','SSbudapest','TTsad','OOtrain','OObuilding','OOpeople','SStram stop','TTsunny day']};
 
+var selectionTags = [];
+var uniqSelectionTags = [];
+
+function test (index, value) {
+    if (index === value) { return true; } else{ return false;};
+}
+
+//Basic function for scrolling up
+function scrollUp () {
+    $("html, body").animate({ scrollTop: 0 }, 300);
+            return false;
+}
+
+//Function to count how many of each tag is there
+function countInArray(array, what) {
+    var count = 0;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] === what) {
+            count++;
+        }
+    }
+    return count;
+}
+
 //Variable holding all tags (maybe needed later)
 var everyTags = _.pluck(images, "tags");
 
@@ -189,7 +214,7 @@ var tagSelection = [''];
 //Variable that holds the array with the selected images
 var selection = []; 
 
-//Function to evaluate if picture has both elements, contains logs for events happening within the function.
+//Function to evaluate if picture has both elements, contains logs for events happening within the function, updates and flattens selectionTags array.
 function detailedEval (imageToEvaluate) {
     var queryNumber = tagSelection.length;
     var innerSelection = [];
@@ -204,8 +229,7 @@ function detailedEval (imageToEvaluate) {
         };
         // console.log("Image contains all tags!")
         // console.log(imageToEvaluate);
-        selection.push(imageToEvaluate);
-
+    selection.push(imageToEvaluate);
     return innerSelection;
     // console.log(innerSelection);
 };
@@ -256,6 +280,11 @@ function evaluation () {
     objectTotal = _.size(images)-1;
     objectSelected = _.size(selection);
     objectPercent = (objectSelected*100)/objectTotal;
+    // SPlucking
+    selectionTags = _.pluck(selection, 'tags');
+    selectionTags = _.flatten(selectionTags);
+    uniqSelectionTags = _.uniq(selectionTags);
+
 }
 
 //Initial call to evaluation
@@ -425,6 +454,7 @@ function populateMenus () {
         timeList.reverse();
         $('#right').append('<div class="time"><tr>' + timeList[i] + '</tr></div>');
     };
+
 }
 
 populateMenus();
@@ -493,19 +523,17 @@ function backButton() {
     }
 
 
-//Execution of the function
+//Execution of the function of backbutton
 $(function() {
                 $( "#popButton" ).on( 'tap', tapHandler );
                 function tapHandler( event ) {
                 backButton();}
                   });
 
-$('GalleryView').isotope();
-
-//SuperClick function for tag based navigation for objects
+//SuperClick function for tag based navigation for "objects"
     $("#top").on("click",".objects", function(event){
         $("#top").fadeOut();
-        $('#popButton').fadeToggle(85);
+        $('#popButton').fadeToggle(45);
         tagSelection.push('OO' + $(this).text());
         tagSelection = _.uniq(tagSelection);
         refresh();
@@ -513,7 +541,7 @@ $('GalleryView').isotope();
         populateMenus();
     });
 
-//SuperClick function for tag based navigation for spaces
+//SuperClick function for tag based navigation for "spaces"
     $("#left").on("click",".spaces", function(event){
         $("#left").fadeOut();
         $('#popButton').fadeToggle(45);
@@ -548,6 +576,7 @@ $('GalleryView').isotope();
         $('#popButton').fadeToggle(85);
         $("#left").hide();
         $("#right").hide();
+        scrollUp ();
     });
 
     $(".left-bar").on("mousedown", function(event){
@@ -555,6 +584,7 @@ $('GalleryView').isotope();
         $('#popButton').fadeToggle(85);
         $("#top").hide();
         $("#right").hide();
+        scrollUp ();
     });
 
     $(".right-bar").on("mousedown", function(event){
@@ -562,11 +592,11 @@ $('GalleryView').isotope();
         $('#popButton').fadeToggle(85);
         $("#left").hide();
         $("#top").hide();
+        scrollUp ();
     });
 
-// Initialization of gallery 
 
-// refresh();
+
 
 
 </script> 
