@@ -1,6 +1,10 @@
-
-var string = "TThome";
-
 function iIT (element, index, array) {
-	return (element == string);
+		var stuff = string;
+		return (element == stuff);
+	}
+
+function svgArray (array, fuckit) {
+	string = fuckit;
+	array.filter(iIT);
 }
+	
