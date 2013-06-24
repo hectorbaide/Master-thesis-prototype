@@ -9,12 +9,15 @@
                 <script type="text/javascript" src="refs/underscore-min.js"></script>
                 <script type="text/javascript" src="refs/jquery.mobile-1.3.0.min.js"></script>
                 <script type="text/javascript" src="refs/raphael-min.js"></script>
+                <script type="text/javascript" src="refs/g.raphael-min.js"></script>
+                <script type="text/javascript" src="refs/g.pie-min.js"></script>
 
     </head>
     
 <body>
-
-Look at the console    
+<div id="textOverlay">
+<p>Look at the console</p>    
+</div>
     
 </body>
     
@@ -141,6 +144,86 @@ images[113] = { 'src': 'photos/113.jpg', 'thumb': 'thumb/113.jpg', 'tags':['','S
 images[114] = { 'src': 'photos/114.jpg', 'thumb': 'thumb/114.jpg', 'tags':['','SSunknown','TTsad','OOtrain','OObuilding','OOpeople','SStram stop','TTtrip','TTsunny day']};
 images[115] = { 'src': 'photos/115.jpg', 'thumb': 'thumb/115.jpg', 'tags':['','TTtrip','SSbudapest','TTsad','OOtrain','OObuilding','OOpeople','SStram stop','TTsunny day']};
 
+//RaphaelJS experimentation
+
+var mesa = Raphael(0,0,"100%","100%");
+
+function stacker(type, cx, cy, r, color, stroke, tag) {
+    this.tag = tag;
+    this.type = "circle";
+    this.cx = cx;
+    this.cy = cy;
+    this.r = r;
+    this.color = color;
+    this.stroke = "none";
+    this.tag = tag;
+}
+
+var stacks = [];
+
+function displayGraph () {
+    evaluation();
+    createContainer();
+    var x = window.innerWidth/2;
+    var y = window.innerHeight/2;
+    var numbers = [];
+    var tags = [];
+    for (var i = container.length - 1; i >= 0; i--) {
+        numbers.push(container[i].number);
+        tags.push(container[i].tag);
+    };
+
+    // var tagger = numbers.shift();
+    numbers.shift();
+    tags.shift();
+    mesa.clear();
+    mesa.piechart(x,y,y/1.5,numbers,{strokewidth:1, stroke:"#555", legend:tags, legendothers:"All others", legendcolor:"white"});
+    
+}
+
+function createStacks () {
+    stacks = [];
+    var posI = 0;
+    var posB = 0;
+    var posAdd = 0;
+    for (var i = container.length - 1; i >= 0; i--) {
+        
+        var screenW = window.innerWidth - 20,
+            screenH = window.innerHeight - 20,
+            max = window.innerWidth,
+            percents = 
+            sizer = (container[i].number*2500)/max;
+        
+        posB = sizer*2;
+        posAdd = posB + posAdd;
+        var positionerx = posAdd + posB;
+        var positionery = screenH/2;
+        var type = "circle";
+        var cx = positionerx;
+        var cy = positionery;
+        var r = sizer;
+        var color = "#FFBBAA";
+        var stroke = "none";
+        var tag = container[i].tag;
+
+        stacks[i] = new stacker(type, cx, cy, r, color, stroke, tag) 
+    };
+    // stacks.reverse();
+}
+
+function displayStacks (color) {
+    mesa.clear();
+    evaluation();
+    createContainer();
+    createStacks();
+    mesa.add(stacks);
+    mesa.forEach(function (el) {
+    el.attr({ fill: color, "fill-opacity":0.5 });
+});
+
+}
+
+//From this point it's working code (sorta)
 var selectionTags = [];
 var uniqSelectionTags = [];
 var container = [];
@@ -169,7 +252,7 @@ function iTR () {
 function sortiTR () {
     container.sort(function (a, b) { return a.number - b.number;
     });
-    container.reverse();
+    // container.reverse();
 }
 
 function createContainer() {
