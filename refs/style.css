@@ -75,6 +75,18 @@ background-color: black;
 vertical-align: center;
 }
 
+#Pies{
+width: 100%;
+background-color: none;
+margin: auto;
+margin-top: 0px;
+margin-left: 0px;
+margin-right: 0px;
+position: absolute;
+vertical-align: center;
+z-index: -199;
+}
+
 #GalleryView {
 width: 100%;
 background-color: black;
@@ -150,7 +162,7 @@ text-shadow: 2px 2px black;
 
 }
 
-#popButton {
+#lowBar {
 	font-family: LongText;
 	font-size: 1.5em;
 	color: #FFFFFF;
@@ -170,6 +182,42 @@ text-shadow: 2px 2px black;
 	z-index: 15000;
 	opacity: 0.9;
    	bottom:0;
+}
+
+#popButton {
+	width: 32%
+}
+
+#graphButton {
+	width: 32%
+}
+
+#pictureMix {
+	width: 32%
+}
+
+.leftText {
+	/*width: 32%;*/
+	border: solid 1px #555555;
+	text-align: center;
+}
+
+.centerText {
+	width: 33%;
+	border: solid 1px #555555;
+	text-align: center;
+	position: absolute;
+	top: 0px;
+	left: 33%;
+}
+
+.rightText {
+	width: 33%;
+	border: solid 1px #555555;
+	text-align: center;
+	position: absolute;
+	top: 0px;
+	right: 0px;
 }
 
 a:link {text-decoration:none;}
