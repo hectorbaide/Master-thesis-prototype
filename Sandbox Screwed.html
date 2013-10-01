@@ -129,9 +129,9 @@ images[51] = { 'src': 'photos/051.jpg', 'thumb': 'thumb/051.jpg', 'tags':['','SS
 images[52] = { 'src': 'photos/052.jpg', 'thumb': 'thumb/052.jpg', 'tags':['','SSbremen','TTdaily','SStram stop','TTcloseup','TTartistic','OOthing']};
 images[53] = { 'src': 'photos/053.jpg', 'thumb': 'thumb/053.jpg', 'tags':['','SSbremen','TTdaily','SShome','TTsunny day','OOroom','OOthing','OOfriends']};
 images[54] = { 'src': 'photos/054.jpg', 'thumb': 'thumb/054.jpg', 'tags':['','SSbremen','TTvacation','SStram stop','TTsunny day','OOpeople','OOfamily','TThappy']};
-images[55] = { 'src': 'photos/055.jpg', 'thumb': 'thumb/055.jpg', 'tags':['','SSbremen','TTvacation','SSpublic square','SSlandmark','TTsunny day','OOpeople','OOfamily','TThappy']};
-images[56] = { 'src': 'photos/056.jpg', 'thumb': 'thumb/056.jpg', 'tags':['','SSbremen','TTvacation','SSpublic square','SSlandmark','TTsunny day','OOpeople','OOfamily','TThappy']};
-images[57] = { 'src': 'photos/057.jpg', 'thumb': 'thumb/057.jpg', 'tags':['','SSbremen','TTvacation','SSpublic square','TTsunny day','OOpeople','OOfamily','TThappy']};
+images[55] = { 'src': 'photos/055.jpg', 'thumb': 'thumb/055.jpg', 'tags':['','SSbremen','TTvacation','OOpublic square','SSlandmark','TTsunny day','OOpeople','OOfamily','TThappy']};
+images[56] = { 'src': 'photos/056.jpg', 'thumb': 'thumb/056.jpg', 'tags':['','SSbremen','TTvacation','OOpublic square','SSlandmark','TTsunny day','OOpeople','OOfamily','TThappy']};
+images[57] = { 'src': 'photos/057.jpg', 'thumb': 'thumb/057.jpg', 'tags':['','SSbremen','TTvacation','OOpublic square','TTsunny day','OOpeople','OOfamily','TThappy']};
 images[58] = { 'src': 'photos/058.jpg', 'thumb': 'thumb/058.jpg', 'tags':['','SSbremen','TTvacation','SSlandmark','SSstreet','TTsunny day','OOpeople','OOfamily','TThappy']};
 images[59] = { 'src': 'photos/059.jpg', 'thumb': 'thumb/059.jpg', 'tags':['','SSbremen','TTvacation','SSlandmark','SSstreet','TTsunny day','OOpeople','OOfamily','TThappy']};
 images[60] = { 'src': 'photos/060.jpg', 'thumb': 'thumb/060.jpg', 'tags':['','OOthing','TTvacation','TTcloseup','OOshoe','SSunknown']};
@@ -143,7 +143,7 @@ images[65] = { 'src': 'photos/065.jpg', 'thumb': 'thumb/065.jpg', 'tags':['','OO
 images[66] = { 'src': 'photos/066.jpg', 'thumb': 'thumb/066.jpg', 'tags':['','OOthing','TTvacation','OOtrain','SSunknown','TTartistic','TTsad']};
 images[67] = { 'src': 'photos/067.jpg', 'thumb': 'thumb/067.jpg', 'tags':['','OOpeople','TTvacation','OOfamily','SSdresden','TThappy']};
 images[68] = { 'src': 'photos/068.jpg', 'thumb': 'thumb/068.jpg', 'tags':['','OOpeople','TTvacation','OOfamily','SSdresden','TThappy','SSlandmark']};
-images[69] = { 'src': 'photos/069.jpg', 'thumb': 'thumb/069.jpg', 'tags':['','OOpeople','TTvacation','OOfamily','SSdresden','TThappy','SSlandmark','SSpublic square']};
+images[69] = { 'src': 'photos/069.jpg', 'thumb': 'thumb/069.jpg', 'tags':['','OOpeople','TTvacation','OOfamily','SSdresden','TThappy','SSlandmark','OOpublic square']};
 images[70] = { 'src': 'photos/070.jpg', 'thumb': 'thumb/070.jpg', 'tags':['','OObuilding','TTvacation','SSdresden','TTartistic','SSlandmark']};
 images[71] = { 'src': 'photos/071.jpg', 'thumb': 'thumb/071.jpg', 'tags':['','OOthing','OObuilding','TTvacation','SSdresden','TTartistic','SSlandmark','OOpeople']};
 images[72] = { 'src': 'photos/072.jpg', 'thumb': 'thumb/072.jpg', 'tags':['','OObuilding','TTvacation','SSdresden','TTartistic','SSlandmark','OOpeople','OOfamily']};
@@ -202,15 +202,7 @@ function posterStack () {
     var background = mesa.rect(0,0,"100%","100%");
     var posterCenter = mesa.circle(x,y,y/7);
     posterCenter.attr({"fill":"#000000", "stroke-width":2, "stroke":"#999"});
-    // var textValue = tagSelection.toString();
-    // textValue = textValue.replace(/[SOT,]/g, ' ');
-    // textValue = textValue.toUpperCase();
-    // textValue = textValue;
-    // var text = mesa.text(x,y, textValue);
-    // text.attr({"font-family":"Tittilum","font-size":22, "fill":"#FFF"});
 
-    // background.attr({"fill":"#000000", "fill-opacity":"0.75"});
-    // posterImage.attr({"fillfit": "black", "stroke":"none"});
     background.toBack();
     // posterImage.toBack();
 }
@@ -238,10 +230,9 @@ function displayGraph () {
     var y = window.innerHeight/2;
     var numbers = [];
     var tags = [];
-    var displayTag = [];
     for (var i = container.length - 1; i >= 0; i--) {
         numbers.push(container[i].number);
-        tags.push(container[i].displayTag);
+        tags.push(container[i].tag);
     };
 
     
@@ -254,16 +245,11 @@ function displayGraph () {
     var background = mesa.rect(0,0,"100%","100%");
     background.attr({"fill":"#000","fill-opacity":"0.75"});
 
-    var linkArray = [];
-    for (var i = container.length - 1; i >= 0; i--) {
-        linkArray.push("#");
-    };
-
 //Draw graph
-    var pie = mesa.piechart(x,y,x/1.2,numbers,{href:linkArray, "stroke":"#666666",legend:tags,legendPos:"south",legendothers:"OTHER", maxSlices:8});
+    var pie = mesa.piechart(x,y,x/1.2,numbers,{"stroke":"#666666",legend:tags,legendPos:"south",legendothers:"OTHER", maxSlices:8});
     pie.each(function() {
     mesa.label(this.x, this.y, this.label[1].attrs.text).attr({
-        font: '1em Tittilum', background: "white"
+        font: '10px Tittilum', background: "white"
     }).show();
     pie.each(function(){
 
@@ -287,10 +273,9 @@ var selectionTags = [];
 var uniqSelectionTags = [];
 var container = [];
 
-function objectBox (tag, number, displayTag) {
+function objectBox (tag, number) {
     this.tag = tag;
     this.number = number;
-    this.displayTag = displayTag;
 }
 
 function iIT (element, index) {
@@ -298,27 +283,24 @@ function iIT (element, index) {
     }
 
 function iTR () {
-
     container = [];
+    evaluation();
     for (var i = uniqSelectionTags.length - 1; i >= 0; i--) {
-        string = uniqSelectionTags[i];
-        var name = selectionTags.filter(iIT);
-        var displayTag = name;
+        string = selectionTags[i];
+        var name = undefined;   
+        name = uniqSelectionTags.filter(iIT);
         var length = name.length;
         name = _.uniq(name);
         name = name.toString();
-        displayTag = _.uniq(displayTag);
-        displayTag = displayTag.toString();
-        displayTag = displayTag.replace(/[SOT]/g, '');
-        displayTag = displayTag.toUpperCase();
-        container[i] = new objectBox(name,length,displayTag);  
+        name = name.replace(/[SOT]/g, '');
+        name = name.toUpperCase();
+        container[i] = new objectBox(name,length);  
     }
 
 }
 
 function sortiTR () {
     
-
     container.sort(function (a, b) { return a.number - b.number;
     });
     container.reverse();
@@ -329,7 +311,7 @@ function sortiTR () {
 
 function createContainer() {
     iTR();
-    sortiTR();
+    // sortiTR();
 
 }
 
@@ -358,10 +340,6 @@ var tagButtons = [];
 
 //Variable that holds the selected tags
 var tagSelection = [''];
-
-//Logging of the size and values of the selected tags
-// console.log(tagSelection + " are the values of tagSelection variable");
-// console.log(tagSelection.length + " is the length of tagSelection variable");
 
 //Variable that holds the array with the selected images
 var selection = []; 
@@ -423,6 +401,7 @@ function evaluation () {
     objectTotal = undefined;
     objectSelected = undefined;
     objectPercent = undefined;
+    selectionTags = undefined;
     for (var i = images.length - 1; i >= 0; i--) {
     detailedEval(images[i]) };   
     selectionSize = selection.length;
@@ -502,9 +481,6 @@ var allMetaSpaceList = [];
 var allMetaTimeList = [];
 var allMetaObjectList = [];
 
-
-
-    
 //Distribution of tags by meta identifiers, storage of all tags from the first thing
 
 function metaDistribution () {
@@ -649,7 +625,7 @@ function backButton() {
 
     if (tagSelection.length <= 1) 
     {
-    tagSelection = [""];
+    tagSelection = [];
     populateInitMenus();
     tagSelection.pop();
     tagSelection = _.uniq(tagSelection);
