@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">  
                 
                 <link rel="stylesheet" href="refs/style.css">
+                <link rel="stylesheet" href="refs/jqcloud.css"
                 <!-- <link rel="stylesheet" href="refs/jquery.mobile-1.3.0.min.css"> -->
 
                 <script type="text/javascript" src="refs/jquery-1.9.1.min.js"></script>
@@ -14,6 +15,7 @@
                 <script type="text/javascript" src="refs/raphael-min.js"></script>
                 <script type="text/javascript" src="refs/g.raphael-min.js"></script>
                 <script type="text/javascript" src="refs/g.pie-min.js"></script>
+                <script type="text/javascript" src="refs/jqcloud-1.0.4.min.js"></script>
 
 
 
@@ -86,12 +88,12 @@ images[8] = { 'src': 'photos/008.jpg', 'thumb': 'thumb/008.jpg', 'tags':['','OOg
 images[9] = { 'src': 'photos/009.jpg', 'thumb': 'thumb/009.jpg', 'tags':['','OOflower','SSapensen','TTvacation','TTartistic','TTcloseup']};
 images[10] = { 'src': 'photos/010.jpg', 'thumb': 'thumb/010.jpg', 'tags':['','SSstreet','SSbremen','TTdaily','OObuilding']};
 images[11] = { 'src': 'photos/011.jpg', 'thumb': 'thumb/011.jpg', 'tags':['','SSstreet','SSbremen','OObuilding','SShome','OOtree']};
-images[12] = { 'src': 'photos/012.jpg', 'thumb': 'thumb/012.jpg', 'tags':['','OOtoy','SSbremen','OOthing','SShome','TTfunny']};
+images[12] = { 'src': 'photos/012.jpg', 'thumb': 'thumb/012.jpg', 'tags':['','OOtoy','OOthing','SShome','TTfunny']};
 images[13] = { 'src': 'photos/013.jpg', 'thumb': 'thumb/013.jpg', 'tags':['','SShome','SSbremen','OOplant','TTartistic','TTcloseup']};
 images[14] = { 'src': 'photos/014.jpg', 'thumb': 'thumb/014.jpg', 'tags':['','SSunknown','TTartistic','TTstock photo','OOflower','TTcloseup']};
 images[15] = { 'src': 'photos/015.jpg', 'thumb': 'thumb/015.jpg', 'tags':['','SSunknown','TTartistic','TTstock photo','OOflower','TTcloseup']};
 images[16] = { 'src': 'photos/016.jpg', 'thumb': 'thumb/016.jpg', 'tags':['','SSunknown','TTartistic','TTstock photo','OOflower','OOrose','TTcloseup']};
-images[17] = { 'src': 'photos/017.jpg', 'thumb': 'thumb/017.jpg', 'tags':['','SSunknown','TTartistic','TTstock photo','OOflower','OOblue flower','TTcloseup']};
+images[17] = { 'src': 'photos/017.jpg', 'thumb': 'thumb/017.jpg', 'tags':['','SSunknown','TTstock photo','OOflower','OOblue flower','TTcloseup']};
 images[18] = { 'src': 'photos/018.jpg', 'thumb': 'thumb/018.jpg', 'tags':['','SSunknown','TTartistic','TTstock photo','OOflower','TTcloseup']};
 images[19] = { 'src': 'photos/019.jpg', 'thumb': 'thumb/019.jpg', 'tags':['','SSunknown','TTartistic','TTstock photo','OOflower','OOrose','TTcloseup']};
 images[20] = { 'src': 'photos/020.jpg', 'thumb': 'thumb/020.jpg', 'tags':['','SSstreet','TTdaily','SStram stop','OOcar','SSbremen']};
@@ -108,8 +110,8 @@ images[30] = { 'src': 'photos/030.jpg', 'thumb': 'thumb/030.jpg', 'tags':['','SS
 images[31] = { 'src': 'photos/031.jpg', 'thumb': 'thumb/031.jpg', 'tags':['','SSlandmark','TTdaily','SSbremen','OOpublic square','OOpeople']};
 images[32] = { 'src': 'photos/032.jpg', 'thumb': 'thumb/032.jpg', 'tags':['','SSlandmark','TTdaily','SSbremen','OOpublic square','OOpeople']};
 images[33] = { 'src': 'photos/033.jpg', 'thumb': 'thumb/033.jpg', 'tags':['','SSuniversity','TTdaily','SSbremen','OObuilding','OOtree']};
-images[34] = { 'src': 'photos/034.jpg', 'thumb': 'thumb/034.jpg', 'tags':['','TTvacation','SShamburg','OObuilding','OOcar','OOpeople']};
-images[35] = { 'src': 'photos/035.jpg', 'thumb': 'thumb/035.jpg', 'tags':['','TTvacation','SShamburg','OOtrain','OOpeople']};
+images[34] = { 'src': 'photos/034.jpg', 'thumb': 'thumb/034.jpg', 'tags':['','TTvacation','SShamburg','OObuilding','OOpeople']};
+images[35] = { 'src': 'photos/035.jpg', 'thumb': 'thumb/035.jpg', 'tags':['','SShamburg','OOtrain','OOpeople']};
 images[36] = { 'src': 'photos/036.jpg', 'thumb': 'thumb/036.jpg', 'tags':['','SSbremen','SStram stop','OOcar','OOpeople','OObuilding','TTnight out']};
 images[37] = { 'src': 'photos/037.jpg', 'thumb': 'thumb/037.jpg', 'tags':['','SSbremen','TTdaily','SShome','OOcode','OOthing']};
 images[38] = { 'src': 'photos/038.jpg', 'thumb': 'thumb/038.jpg', 'tags':['','SSbremen','TTdaily','SShome','OOthing','OOtoy']};
@@ -212,6 +214,7 @@ function posterStack () {
     // background.attr({"fill":"#000000", "fill-opacity":"0.75"});
     // posterImage.attr({"fillfit": "black", "stroke":"none"});
     background.toBack();
+
     // posterImage.toBack();
 }
 
@@ -227,6 +230,18 @@ function posterStack () {
 // }
 
 var stacks = [];
+
+function clickclock (tag) {
+    
+    console.log(tag);
+    // tagSelection = [''];
+    tagSelection.push(tag);
+    mesa.clear();
+    refresh();
+    metaDistribution();
+    populateMenus();
+    console.log(container);
+}
 
 function displayGraph () {
 
@@ -253,10 +268,12 @@ function displayGraph () {
 //Prepare background and canvas
     var background = mesa.rect(0,0,"100%","100%");
     background.attr({"fill":"#000","fill-opacity":"0.75"});
-
+    var t = 0;
     var linkArray = [];
     for (var i = container.length - 1; i >= 0; i--) {
-        linkArray.push("#");
+        
+        linkArray.push("javascript:clickclock('" + container[t].tag + "');");
+        t = t + 1;
     };
 
 //Draw graph
@@ -448,7 +465,7 @@ function displayPictures () {
     x = window.innerWidth/3;
     y = x;
     var pTot = imageThumbs.length;
-    if (pTot < 72) 
+    if (pTot < 300) 
     {
         for (var index in imageThumbs) {
         // $("#GalleryView").append("<a href=''><img src='" + imageThumbs[index] + "'/ width='155' height='155' border='2'></a>");}
@@ -676,10 +693,12 @@ function backButton() {
     populateMenus();   
     };
 
+    scrollUp();
+
     }
 
 
-//Execution of the function of backbutton
+//Execution of the function of ba_ckbutton
 $(function() {
                 $( "#popButton" ).on( 'tap', tapHandler );
                 function tapHandler( event ) {
