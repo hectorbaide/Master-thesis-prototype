@@ -52,6 +52,8 @@
 
     </div>
 
+    <div id="cloudScreen" style="width: 700px; height: 1100px;"></div>
+
     <div id="lowBar">
 
         <div id="popButton">
@@ -62,12 +64,12 @@
             <p class = "centerText">GRAPH</p>
         </div>
 
-        <div id="pictureMix"> 
-            <p class = "rightText">PICMIX</p>
+        <div id="cloud"> 
+            <p class = "rightText">CLOUD</p>
         </div>
 
     </div>    
-    
+     
 </body>
     
 
@@ -245,64 +247,86 @@ function clickclock (tag) {
 
 function displayGraph () {
 
-//Data ops    
-    evaluation();
-    createContainer();
+    //Data ops    
+        evaluation();
+        createContainer();
 
-    var x = window.innerWidth/2;
-    var y = window.innerHeight/2;
-    var numbers = [];
-    var tags = [];
-    var displayTag = [];
-    for (var i = container.length - 1; i >= 0; i--) {
-        numbers.push(container[i].number);
-        tags.push(container[i].displayTag);
-    };
+        var x = window.innerWidth/2;
+        var y = window.innerHeight/2;
+        var numbers = [];
+        var tags = [];
+        var displayTag = [];
+        for (var i = container.length - 1; i >= 0; i--) {
+            numbers.push(container[i].number);
+            tags.push(container[i].displayTag);
+        };
 
-    
-
-    mesa.clear();
-
-    console.log(tags);
-
-//Prepare background and canvas
-    var background = mesa.rect(0,0,"100%","100%");
-    background.attr({"fill":"#000","fill-opacity":"0.75"});
-    var t = 0;
-    var linkArray = [];
-    for (var i = container.length - 1; i >= 0; i--) {
         
-        linkArray.push("javascript:clickclock('" + container[t].tag + "');");
-        t = t + 1;
-    };
 
-//Draw graph
-    var pie = mesa.piechart(x,y,x/1.2,numbers,{href:linkArray, "stroke":"#666666",legend:tags,legendPos:"south",legendothers:"OTHER", maxSlices:8});
-    pie.each(function() {
-    mesa.label(this.x, this.y, this.label[1].attrs.text).attr({
-        font: '1em Tittilum', background: "white"
-    }).show();
-    pie.each(function(){
+        mesa.clear();
 
-    })
-});
-    posterStack();}
+        console.log(tags);
 
-function displayStacks (color) {
-    mesa.clear();
-    evaluation();
-    createContainer();
-    mesa.add(stacks);
-    mesa.forEach(function (el) {
-    el.attr({ fill: color, "fill-opacity":0.5 });
-});
+    //Prepare background and canvas
+        var background = mesa.rect(0,0,"100%","100%");
+        background.attr({"fill":"#000","fill-opacity":"0.75"});
+        var t = 0;
+        var linkArray = [];
+        for (var i = container.length - 1; i >= 0; i--) {
+            
+            linkArray.push("javascript:clickclock('" + container[t].tag + "');");
+            t = t + 1;
+        };
+
+    //Draw graph
+        var pie = mesa.piechart(x,y,x/1.2,numbers,{href:linkArray, "stroke":"#666666",legend:tags,legendPos:"south",legendothers:"OTHER", maxSlices:8});
+        pie.each(function() {
+        mesa.label(this.x, this.y, this.label[1].attrs.text).attr({
+            font: '1em Tittilum', background: "white"
+        }).show();
+        pie.each(function(){
+
+        })
+    });
+        posterStack();}
+
+    function displayStacks (color) {
+        mesa.clear();
+        evaluation();
+        createContainer();
+        mesa.add(stacks);
+        mesa.forEach(function (el) {
+        el.attr({ fill: color, "fill-opacity":0.5 });
+    });
 
 }
+
+var cloudTest = [{text:"Blind", weight:25},{text:"Melon", weight:20},{text:"Sblaj", weight:12}];
+
+function displayCloud (argument) {
+    // body...
+    $(function() {
+        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+        $("#cloudScreen").jQCloud(cloudVals);
+      });
+
+}
+
+
 
 //From this point it's working code (sorta)
 var selectionTags = [];
 var uniqSelectionTags = [];
 var container = [];
+
+
+function cloudBox (text, weight) {
+
+    this.text = text;
+    this.weight = weight;
+
+}
+
 
 function objectBox (tag, number, displayTag) {
     this.tag = tag;
@@ -315,7 +339,7 @@ function iIT (element, index) {
     }
 
 function iTR () {
-
+    cloudVals = [];
     container = [];
     for (var i = uniqSelectionTags.length - 1; i >= 0; i--) {
         string = uniqSelectionTags[i];
@@ -328,7 +352,9 @@ function iTR () {
         displayTag = displayTag.toString();
         displayTag = displayTag.replace(/[SOT]/g, '');
         displayTag = displayTag.toUpperCase();
-        container[i] = new objectBox(name,length,displayTag);  
+        container[i] = new objectBox(name,length,displayTag);
+        cloudVals[i] = new cloudBox(displayTag, length);
+
     }
 
 }
@@ -465,7 +491,7 @@ function displayPictures () {
     x = window.innerWidth/3;
     y = x;
     var pTot = imageThumbs.length;
-    if (pTot < 300) 
+    if (pTot < 72) 
     {
         for (var index in imageThumbs) {
         // $("#GalleryView").append("<a href=''><img src='" + imageThumbs[index] + "'/ width='155' height='155' border='2'></a>");}
@@ -795,6 +821,15 @@ $(function() {
             mesa.clear();
             graphTogglerSwitch = 0;
         };
+        
+        // body...
+    });
+
+    var graphTogglerSwitch = 0
+
+    $("#cloud").on("mousedown", function(event) {
+
+        displayCloud();
         
         // body...
     });

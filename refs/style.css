@@ -87,6 +87,18 @@ vertical-align: center;
 z-index: -199;
 }*/
 
+#cloud {
+
+z-index: 23000;
+
+}
+
+#cloudScreen {
+
+z-index: 23020;
+
+}
+
 #GalleryView {
 width: 100%;
 background-color: black;
