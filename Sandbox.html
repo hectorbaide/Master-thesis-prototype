@@ -60,12 +60,12 @@
             <p class = "leftText">< BACK</p>
         </div>
 
-        <div id="graphButton"> 
+        <div id="graphButton">
             <p class = "centerText">GRAPH</p>
         </div>
 
         <div id="cloud"> 
-            <p class = "rightText">CLOUD</p>
+            <p class = "rightText">RESET</p>
         </div>
 
     </div>    
@@ -279,7 +279,7 @@ function displayGraph () {
         };
 
     //Draw graph
-        var pie = mesa.piechart(x,y,x/1.2,numbers,{href:linkArray, "stroke":"#666666",legend:tags,legendPos:"south",legendothers:"OTHER", maxSlices:8});
+        var pie = mesa.piechart(x,y,x/1.2,numbers,{href:linkArray, "stroke":"#666666",legend:tags,legendPos:"south",legendothers:"OTHER", maxSlices:15});
         pie.each(function() {
         mesa.label(this.x, this.y, this.label[1].attrs.text).attr({
             font: '1em Tittilum', background: "white"
@@ -301,17 +301,24 @@ function displayGraph () {
 
 }
 
-var cloudTest = [{text:"Blind", weight:25},{text:"Melon", weight:20},{text:"Sblaj", weight:12}];
+var cloudTest = 0;
 
-function displayCloud (argument) {
-    // body...
-    $(function() {
-        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-        $("#cloudScreen").jQCloud(cloudVals);
-      });
+
+function displayCloud () {
+
+var JQCX = window.innerWidth - 200 ;
+var JQCY = window.innerHeight - 200 ;
+
+$(function() { $("#cloudScreen").jQCloud(cloudVals, {width:JQCX, height:JQCY});});
 
 }
 
+function removeCloud () {
+
+
+$("#cloudScreen").empty();
+
+}
 
 
 //From this point it's working code (sorta)
@@ -365,8 +372,8 @@ function sortiTR () {
     container.sort(function (a, b) { return a.number - b.number;
     });
     container.reverse();
-    console.log(container + "reversed");
-    // container.shift(0,1);
+    console.log(container.name + "reversed");
+    container.shift(0,1);
     console.log(container);
 }
 
@@ -486,11 +493,58 @@ function evaluation () {
 evaluation();
 
 //Image insert function displayPictures
+// function displayPictures () {
+//     evaluation();
+//     x = window.innerWidth/3;
+//     y = x;
+//     var pTot = imageThumbs.length;
+//     if (pTot < 72) 
+//     {
+//         for (var index in imageThumbs) {
+//         // $("#GalleryView").append("<a href=''><img src='" + imageThumbs[index] + "'/ width='155' height='155' border='2'></a>");}
+//         $("#GalleryView").append("<a href='" + imageLinks[index] + "'><img src='" + imageThumbs[index] + "'/ width='" + x + "' height='" + y + "' border='2'></a>");}
+//         $("#GalleryView").pop;
+//         $("#GalleryView").pop;
+    
+//     } 
+
+//     else
+
+//     {
+//         $("#textOverlay").append("<p>" + "Search by tapping on the edges or by tapping the graph button. Have fun!</p>");
+//         $("#textOverlay").fadeIn;
+
+//     }
+// }
+
 function displayPictures () {
+
     evaluation();
-    x = window.innerWidth/3;
-    y = x;
+
     var pTot = imageThumbs.length;
+
+    if (pTot < 15) {
+
+        x = window.innerWidth/3;
+        y = x;
+
+    } else if (pTot < 30) {
+
+        x = window.innerWidth/4;
+        y = x;
+
+    } else if (pTot < 40) {
+
+        x = window.innerWidth/5;
+        y = x;
+    } else {
+
+        x = window.innerWidth/6;
+        y = x;
+    }
+
+    
+    
     if (pTot < 72) 
     {
         for (var index in imageThumbs) {
@@ -504,7 +558,7 @@ function displayPictures () {
     else
 
     {
-        $("#textOverlay").append("<p>" + "Select another tag to mix with</p>");
+        $("#textOverlay").append("<p>" + "Search by tapping on the edges or by tapping the graph button. Have fun!</p>");
         $("#textOverlay").fadeIn;
 
     }
@@ -724,7 +778,7 @@ function backButton() {
     }
 
 
-//Execution of the function of ba_ckbutton
+//Execution of the function of backbutton
 $(function() {
                 $( "#popButton" ).on( 'tap', tapHandler );
                 function tapHandler( event ) {
@@ -740,6 +794,7 @@ $(function() {
         refresh();
         metaDistribution();
         populateMenus();
+        scrollUp();
     });
 
 //SuperClick function for tag based navigation for "spaces"
@@ -751,6 +806,7 @@ $(function() {
         refresh();
         metaDistribution();
         populateMenus();    
+        scrollUp();
     });
 
 //SuperClick function for tag based navigation for "time"
@@ -762,6 +818,7 @@ $(function() {
         refresh();
         metaDistribution();
         populateMenus();   
+        scrollUp();
     });
 
 //Initial state hide menus
@@ -827,12 +884,35 @@ $(function() {
 
     var graphTogglerSwitch = 0
 
-    $("#cloud").on("mousedown", function(event) {
 
-        displayCloud();
-        
+    $("#cloud").on("mousedown", function(event) {
         // body...
+        tagSelection = [""];
+        mesa.clear();
+        // evaluation();
+        refresh();
+        scrollUp();
     });
+
+    // $("#cloud").on("mousedown", function(event) {
+    //      if (cloudTest === 0) {
+    //         mesa.clear();
+    //         evaluation();
+    //         createContainer();
+    //         displayCloud();
+    //         var background = mesa.rect(0,0,"100%","100%");
+    //         background.attr({"fill":"#000","fill-opacity":"0.85"});
+    //         cloudTest = 1;
+
+    //     } else {
+
+    //         removeCloud();
+    //         mesa.clear();
+    //         cloudTest = 0;
+    //     }; 
+        
+    //     // body...
+    // });
 
 displayPictures();
 

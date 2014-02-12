@@ -89,13 +89,15 @@ z-index: -199;
 
 #cloud {
 
-z-index: 23000;
+z-index: 499;
 
 }
 
 #cloudScreen {
 
-z-index: 23020;
+z-index: 500;
+vertical-align: center;
+
 
 }
 
